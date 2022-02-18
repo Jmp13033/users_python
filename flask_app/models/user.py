@@ -1,5 +1,5 @@
 
-from mysqlconnections import connectToMySQL # import mysqlconnections
+from flask_app.config.mysqlconnections import connectToMySQL # import mysqlconnections
 
 class User:
     def __init__(self, data):
@@ -44,10 +44,3 @@ class User:
     def destroy(cls,data):
         query  = "DELETE FROM users WHERE id = %(id)s;"
         return connectToMySQL('users_schema').query_db(query,data)
-
-
-
-
-
-
-
