@@ -18,8 +18,19 @@ def new_user():
 @app.route("/user/make", methods = ["POST"])
 def make_user():
     User.save(request.form)
+    return redirect("/userpage")
 
-    return redirect("/userpage" )
+
+
+
+@app.route("/user/show/<int:id>")
+def show(id):
+    data = {
+        "id": id
+
+    }
+    return render_template("show.html", user = User.get_one(data))
+
 
 
 
@@ -29,8 +40,29 @@ def users():
 
 
 
+@app.route("/user/delete/<int:id>")
+def delete(id):
+    data = {
+        "id": id
+    }
+    User.destroy(data)
+    return redirect("/userpage")
 
 
+@app.route("/user/edit/<int:id>")
+def edit(id):
+    data = {
+        "id": id
+
+    }
+    return render_template("edit.html", user = User.get_one(data))
+
+
+
+@app.route("/user/update", methods = ["POST"])
+def update():
+    User.update(request.form)
+    return redirect("/userpage")
 
 
 
@@ -56,4 +88,4 @@ def users():
 
 
 if __name__=="__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)
